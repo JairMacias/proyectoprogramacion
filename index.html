@@ -19,33 +19,37 @@
 </body>
 <script>
     const ejemplo = async()=>{
-    let httpEl = await fetch ("https://pokeapi.co/api/v2/pokemon?limit=10");
-    let second = await httpEl.json();
-    console.log ("second", second);
 
-    second.results.forEach ( async(pokemon) => {
 
-        const requestImage = await fetch(pokemon.url);
-        const rquestedImage = await requestImage.json();//xxxxx//
-        console.log ("requestedIamge", rquestedImage.sprites.front_default);
+        let httpEl = await fetch ("https://pokeapi.co/api/v2/type/11/");
+        let pokemonJson= await httpEl.json();
+        console.log("array", pokemonJson.pokemon);
 
-        let newDiv = document.createElement("div");
-        let newH2 = document.createElement("H2");
-        let texto = document.createTextNode( pokemon.name );
-        let image = document.createElement("img");
-        image.setAttribute ("src", rquestedImage.sprites.front_default);
-        newH2.appendChild(texto);
-        newDiv.appendChild(newH2);
-        newDiv.appendChild(image);
-        document.getElementById("principal").appendChild(newDiv);
-        
-    });
-};
+        pokemonJson.pokemon.forEach ( async(item) => {
+ 
+
+            const requestUrl = await fetch(item.pokemon.url);
+            const requestedUrl = await requestUrl.json();
+
+
+            let newDiv = document.createElement("div");
+            let newH2 = document.createElement("H2");
+            let nombre = document.createTextNode( item.pokemon.name );
+            let image = document.createElement("img");
+            image.setAttribute ("src", requestedUrl.sprites.other.dream_world.front_default);
+
+            newH2.appendChild(nombre);
+            newDiv.appendChild(newH2);
+            newDiv.appendChild(image);
+
+            document.getElementById("principal").appendChild(newDiv);
+            
+        });
+    };
 
 
 ejemplo();
 
-pokemos de agua
 
 </script> 
 </html>
